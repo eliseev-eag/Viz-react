@@ -1,76 +1,81 @@
+/* eslint-disable no-unused-vars */
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import Timeline from 'react-visjs-timeline';
+import { extent } from 'd3-array';
+import { scaleBand, scaleTime } from 'd3-scale';
 import { eventsSelector, eventTypesSelector } from 'selectors';
 
-const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+const WIDTH = 400;
+const HEIGHT = 400;
+const MARGIN_LEFT = 30;
+const MARGIN_TOP = 30;
+const TICK_LENGTH = 6;
 
-const TIMELINE_OPTIONS = {
-  align: 'center',
-  minHeight: '400px',
-  maxHeight: '400px',
-  type: 'range',
-  tooltip: {
-    followMouse: true,
-    overflowMethod: 'cap',
-  },
-  snap: null,
-  orientation: { axis: 'both' },
-  zoomMin: MILLISECONDS_IN_DAY * 5,
-};
-
-const renderTitle = (item) => `
-  <div>
-    <h3 className="event-name">${item.name}</h3>
-    <hr />
-    <div className="dates">
-      <div>
-        ${item.startDate.toLocaleDateString()} - ${item.endDate.toLocaleDateString()}
-      </div>
-      <div>
-        <b>Продолжительность: </b>
-        ${Math.floor((item.endDate - item.startDate) / MILLISECONDS_IN_DAY)} дн.
-      </div>
-    </div>
-  </div>
-`;
+const pixelsPerTick = 100;
+const numberOfTicksTarget = Math.max(1, Math.floor(WIDTH / pixelsPerTick));
 
 const EventsTimeline = () => {
   const events = useSelector(eventsSelector);
   const eventTypes = useSelector(eventTypesSelector);
 
-  const items = useMemo(
-    () =>
-      events.slice(0, 10).map((event) => ({
-        start: event.startDate,
-        end: event.endDate,
-        content: event.name,
-        duration: event.endDate - event.startDate,
-        group: event.type,
-        type:
-          event.endDate - event.startDate <= MILLISECONDS_IN_DAY
-            ? 'point'
-            : 'range',
-        title: renderTitle(event),
-      })),
+  const domainDates = useMemo(
+    () => events.flatMap((event) => [event.endDate, event.startDate]),
     [events],
   );
 
-  const groups = useMemo(
-    () =>
-      eventTypes.map((eventType) => ({
-        id: eventType.id,
-        content: eventType.type,
-      })),
-    [eventTypes],
-  );
+  const evenTypesAsString = useMemo(() => eventTypes.map((it) => it.type), [
+    eventTypes,
+  ]);
+
+  const yScale = scaleBand()
+    .domain(evenTypesAsString)
+    .range([0, HEIGHT])
+    .padding(0.1)
+    .round();
+
+  const xScale = scaleTime()
+    .domain(extent(domainDates))
+    .range([0, WIDTH])
+    .nice();
+
+  const ticks = xScale.ticks(numberOfTicksTarget).map((value) => ({
+    value: value.toLocaleDateString(),
+    xOffset: xScale(value),
+  }));
 
   return (
-    <div>
-      {items && items.length > 0 && (
-        <Timeline options={TIMELINE_OPTIONS} items={items} groups={groups} />
-      )}
-    </div>
+    <svg>
+      <path
+        d={[
+          'M',
+          xScale.range()[0],
+          TICK_LENGTH,
+          'v',
+          -TICK_LENGTH,
+          'H',
+          xScale.range()[1],
+          'v',
+          TICK_LENGTH,
+        ].join(' ')}
+        fill="none"
+        stroke="currentColor"
+      />
+      {ticks.map(({ value, xOffset }) => (
+        <g key={value} transform={`translate(${xOffset}, 0)`}>
+          <line y2={TICK_LENGTH} stroke="currentColor" />
+          <text
+            key={value}
+            style={{
+              fontSize: '10px',
+              textAnchor: 'middle',
+              transform: 'translateY(20px)',
+            }}
+          >
+            {value}
+          </text>
+        </g>
+      ))}
+    </svg>
   );
 };
 
