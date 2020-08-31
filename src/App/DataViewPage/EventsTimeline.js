@@ -1,22 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { extent } from 'd3-array';
 import { scaleBand, scaleTime } from 'd3-scale';
 import { eventsSelector, eventTypesSelector } from 'selectors';
+import './index.css';
 
-const WIDTH = 400;
-const HEIGHT = 400;
-const MARGIN_LEFT = 30;
-const MARGIN_TOP = 30;
+const DEFAULT_WIDTH = 400;
+const DEFAULT_HEIGHT = 400;
+const MARGIN_LEFT = 50;
+const MARGIN_TOP = 50;
 const TICK_LENGTH = 6;
 
-const pixelsPerTick = 100;
-const numberOfTicksTarget = Math.max(1, Math.floor(WIDTH / pixelsPerTick));
+const PIXELS_PER_TICK = 100;
 
 const EventsTimeline = () => {
   const events = useSelector(eventsSelector);
   const eventTypes = useSelector(eventTypesSelector);
+  const [sizes, setSizes] = useState({
+    width: DEFAULT_WIDTH,
+    height: DEFAULT_HEIGHT,
+  });
+  const svgRef = useRef();
 
   const domainDates = useMemo(
     () => events.flatMap((event) => [event.endDate, event.startDate]),
@@ -29,22 +34,32 @@ const EventsTimeline = () => {
 
   const yScale = scaleBand()
     .domain(evenTypesAsString)
-    .range([0, HEIGHT])
+    .range([MARGIN_TOP, sizes.height - MARGIN_TOP])
     .padding(0.1)
     .round();
 
   const xScale = scaleTime()
     .domain(extent(domainDates))
-    .range([0, WIDTH])
+    .range([MARGIN_LEFT, sizes.width - MARGIN_LEFT])
     .nice();
+
+  const numberOfTicksTarget = Math.max(
+    1,
+    Math.floor((sizes.width - 2 * MARGIN_LEFT) / PIXELS_PER_TICK),
+  );
 
   const ticks = xScale.ticks(numberOfTicksTarget).map((value) => ({
     value: value.toLocaleDateString(),
     xOffset: xScale(value),
   }));
 
+  useEffect(() => {
+    const { width, height } = svgRef.current.getBoundingClientRect();
+    setSizes({ width, height });
+  }, []);
+
   return (
-    <svg>
+    <svg className="timeline-container" ref={svgRef}>
       <path
         d={[
           'M',
@@ -66,7 +81,6 @@ const EventsTimeline = () => {
           <text
             key={value}
             style={{
-              fontSize: '10px',
               textAnchor: 'middle',
               transform: 'translateY(20px)',
             }}
