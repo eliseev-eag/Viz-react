@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { extent } from 'd3-array';
@@ -36,7 +35,7 @@ const EventsTimeline = () => {
     .domain(evenTypesAsString)
     .range([MARGIN_TOP, sizes.height - MARGIN_TOP])
     .padding(0.1)
-    .round();
+    .round(true);
 
   const xScale = scaleTime()
     .domain(extent(domainDates))
@@ -64,7 +63,7 @@ const EventsTimeline = () => {
         d={[
           'M',
           xScale.range()[0],
-          TICK_LENGTH,
+          yScale.range()[1],
           'v',
           -TICK_LENGTH,
           'H',
@@ -76,7 +75,12 @@ const EventsTimeline = () => {
         stroke="currentColor"
       />
       {ticks.map(({ value, xOffset }) => (
-        <g key={value} transform={`translate(${xOffset}, 0)`}>
+        <g
+          key={value}
+          transform={`translate(${xOffset}, ${
+            yScale.range()[1] - TICK_LENGTH
+          })`}
+        >
           <line y2={TICK_LENGTH} stroke="currentColor" />
           <text
             key={value}
