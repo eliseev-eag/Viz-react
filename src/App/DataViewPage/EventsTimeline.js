@@ -10,7 +10,7 @@ const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 const MARGIN_LEFT = 50;
 const MARGIN_TOP = 0;
-const MARGIN_BOTTOM = 20;
+const MARGIN_BOTTOM = 25;
 
 const EventsTimeline = () => {
   const events = useSelector(eventsSelector);
@@ -98,7 +98,7 @@ const EventsTimeline = () => {
         ticks={xTicks}
         xMin={MARGIN_LEFT}
         xMax={sizes.width - MARGIN_LEFT}
-        yMax={sizes.height - MARGIN_BOTTOM}
+        yMax={sizes.height}
       />
     </svg>
   );
