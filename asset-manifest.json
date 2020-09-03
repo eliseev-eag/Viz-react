@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Viz-react/static/css/main.4df8a1b5.chunk.css",
-    "main.js": "/Viz-react/static/js/main.c84e0d4d.chunk.js",
-    "main.js.map": "/Viz-react/static/js/main.c84e0d4d.chunk.js.map",
+    "main.js": "/Viz-react/static/js/main.c874f478.chunk.js",
+    "main.js.map": "/Viz-react/static/js/main.c874f478.chunk.js.map",
     "runtime-main.js": "/Viz-react/static/js/runtime-main.e32c68fb.js",
     "runtime-main.js.map": "/Viz-react/static/js/runtime-main.e32c68fb.js.map",
     "static/css/2.04ff9426.chunk.css": "/Viz-react/static/css/2.04ff9426.chunk.css",
@@ -11,7 +11,7 @@
     "static/js/3.6605ec34.chunk.js": "/Viz-react/static/js/3.6605ec34.chunk.js",
     "static/js/3.6605ec34.chunk.js.map": "/Viz-react/static/js/3.6605ec34.chunk.js.map",
     "index.html": "/Viz-react/index.html",
-    "precache-manifest.093660d8087425a54d51518d1e3484c1.js": "/Viz-react/precache-manifest.093660d8087425a54d51518d1e3484c1.js",
+    "precache-manifest.6966a5ca1a1129f54eaa4eeaacfff6e5.js": "/Viz-react/precache-manifest.6966a5ca1a1129f54eaa4eeaacfff6e5.js",
     "service-worker.js": "/Viz-react/service-worker.js",
     "static/css/2.04ff9426.chunk.css.map": "/Viz-react/static/css/2.04ff9426.chunk.css.map",
     "static/css/main.4df8a1b5.chunk.css.map": "/Viz-react/static/css/main.4df8a1b5.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.04ff9426.chunk.css",
     "static/js/2.81406f34.chunk.js",
     "static/css/main.4df8a1b5.chunk.css",
-    "static/js/main.c84e0d4d.chunk.js"
+    "static/js/main.c874f478.chunk.js"
   ]
 }
