@@ -83,15 +83,26 @@ const EventsTimeline = () => {
             height={yScale.bandwidth()}
             fill={getColor(event.type)}
           />
-          <text
-            x={event.x1 + event.width / 2}
-            y={yScale(index) + yScale.bandwidth() / 2}
-            dominantBaseline="middle"
-            textAnchor="middle"
-            style={{ fontSize: `${yScale.bandwidth()}px` }}
+          <foreignObject
+            x={event.x1}
+            width={event.width}
+            y={yScale(index)}
+            height={yScale.bandwidth()}
           >
-            {event.name}
-          </text>
+            <div
+              className="plain-text"
+              xmlns="http://www.w3.org/1999/xhtml"
+              style={{
+                fontSize: `${Math.floor(yScale.bandwidth()) - 1}px`,
+                textAlign: 'center',
+                width: `${event.width}px`,
+                height: `${yScale.bandwidth()}px`,
+                lineHeight: `${yScale.bandwidth()}px`,
+              }}
+            >
+              {event.name}
+            </div>
+          </foreignObject>
         </g>
       ))}
       <TimelineAxis
