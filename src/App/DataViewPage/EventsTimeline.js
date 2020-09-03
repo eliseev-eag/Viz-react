@@ -4,16 +4,13 @@ import { extent, range } from 'd3-array';
 import { scaleBand, scaleOrdinal, scaleTime } from 'd3-scale';
 import { schemeSet2 } from 'd3-scale-chromatic';
 import { eventsSelector, eventTypesSelector } from 'selectors';
-import './index.css';
+import TimelineAxis from './TimelineAxis';
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 const MARGIN_LEFT = 50;
 const MARGIN_TOP = 0;
 const MARGIN_BOTTOM = 20;
-const TICK_LENGTH = 6;
-
-const PIXELS_PER_TICK = 100;
 
 const EventsTimeline = () => {
   const events = useSelector(eventsSelector);
@@ -50,12 +47,7 @@ const EventsTimeline = () => {
     .range([MARGIN_LEFT, sizes.width - MARGIN_LEFT])
     .nice();
 
-  const numberOfTicksTarget = Math.max(
-    1,
-    Math.floor((sizes.width - 2 * MARGIN_LEFT) / PIXELS_PER_TICK),
-  );
-
-  const xTicks = xScale.ticks(numberOfTicksTarget).map((value) => ({
+  const xTicks = xScale.ticks().map((value) => ({
     value: value.toLocaleDateString(),
     xOffset: xScale(value),
   }));
@@ -102,41 +94,12 @@ const EventsTimeline = () => {
           </text>
         </g>
       ))}
-      <g className="x-axis">
-        <path
-          d={[
-            'M',
-            xScale.range()[0],
-            yScale.range()[1],
-            'v',
-            -TICK_LENGTH,
-            'H',
-            xScale.range()[1],
-            'v',
-            TICK_LENGTH,
-          ].join(' ')}
-          fill="none"
-          stroke="currentColor"
-        />
-        {xTicks.map(({ value, xOffset }) => (
-          <g
-            key={value}
-            transform={`translate(${xOffset}, ${
-              yScale.range()[1] - TICK_LENGTH
-            })`}
-          >
-            <line y2={TICK_LENGTH} stroke="currentColor" />
-            <text
-              style={{
-                textAnchor: 'middle',
-                transform: 'translateY(20px)',
-              }}
-            >
-              {value}
-            </text>
-          </g>
-        ))}
-      </g>
+      <TimelineAxis
+        ticks={xTicks}
+        xMin={MARGIN_LEFT}
+        xMax={sizes.width - MARGIN_LEFT}
+        yMax={sizes.height - MARGIN_BOTTOM}
+      />
     </svg>
   );
 };
