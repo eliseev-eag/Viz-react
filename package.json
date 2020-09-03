@@ -24,6 +24,7 @@
     "antd": "^4.5.4",
     "d3-array": "^2.6.0",
     "d3-scale": "^3.2.2",
+    "d3-scale-chromatic": "^2.0.0",
     "d3-time-format": "^3.0.0",
     "final-form": "^4.20.1",
     "lodash-es": "^4.17.15",
