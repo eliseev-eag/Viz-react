@@ -5,20 +5,20 @@
     "main.js.map": "/Viz-react/static/js/main.9719cda0.chunk.js.map",
     "runtime-main.js": "/Viz-react/static/js/runtime-main.6c88cc11.js",
     "runtime-main.js.map": "/Viz-react/static/js/runtime-main.6c88cc11.js.map",
-    "static/css/2.aff1ee42.chunk.css": "/Viz-react/static/css/2.aff1ee42.chunk.css",
-    "static/js/2.d3d6173a.chunk.js": "/Viz-react/static/js/2.d3d6173a.chunk.js",
-    "static/js/2.d3d6173a.chunk.js.map": "/Viz-react/static/js/2.d3d6173a.chunk.js.map",
+    "static/css/2.541cd670.chunk.css": "/Viz-react/static/css/2.541cd670.chunk.css",
+    "static/js/2.ad3b91d6.chunk.js": "/Viz-react/static/js/2.ad3b91d6.chunk.js",
+    "static/js/2.ad3b91d6.chunk.js.map": "/Viz-react/static/js/2.ad3b91d6.chunk.js.map",
     "static/js/3.903f49db.chunk.js": "/Viz-react/static/js/3.903f49db.chunk.js",
     "static/js/3.903f49db.chunk.js.map": "/Viz-react/static/js/3.903f49db.chunk.js.map",
     "index.html": "/Viz-react/index.html",
-    "static/css/2.aff1ee42.chunk.css.map": "/Viz-react/static/css/2.aff1ee42.chunk.css.map",
+    "static/css/2.541cd670.chunk.css.map": "/Viz-react/static/css/2.541cd670.chunk.css.map",
     "static/css/main.85583000.chunk.css.map": "/Viz-react/static/css/main.85583000.chunk.css.map",
-    "static/js/2.d3d6173a.chunk.js.LICENSE.txt": "/Viz-react/static/js/2.d3d6173a.chunk.js.LICENSE.txt"
+    "static/js/2.ad3b91d6.chunk.js.LICENSE.txt": "/Viz-react/static/js/2.ad3b91d6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6c88cc11.js",
-    "static/css/2.aff1ee42.chunk.css",
-    "static/js/2.d3d6173a.chunk.js",
+    "static/css/2.541cd670.chunk.css",
+    "static/js/2.ad3b91d6.chunk.js",
     "static/css/main.85583000.chunk.css",
     "static/js/main.9719cda0.chunk.js"
   ]
