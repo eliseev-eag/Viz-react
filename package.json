@@ -35,7 +35,7 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.3.0",
-    "vis-timeline": "^7.3.7"
+    "vis-timeline": "^7.4.6"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1",
