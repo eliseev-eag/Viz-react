@@ -1,4 +1,3 @@
-import React from 'react';
 import { DatePicker } from 'antd';
 
 const DEFAULT_DATE_FORMAT = 'DD.MM.YYYY';

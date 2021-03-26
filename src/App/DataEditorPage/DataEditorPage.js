@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { generatePath, Route, useHistory } from 'react-router-dom';
 import { Layout, message, PageHeader } from 'antd';

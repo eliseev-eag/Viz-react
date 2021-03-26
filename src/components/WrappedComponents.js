@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { debounce, identity } from 'lodash-es';
 import { Field } from 'react-final-form';
 import { Form, Input } from 'antd';

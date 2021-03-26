@@ -1,4 +1,3 @@
-import React from 'react';
 import { Select } from 'antd';
 import { ID_FACTORY, NAME_FACTORY } from './constants';
 

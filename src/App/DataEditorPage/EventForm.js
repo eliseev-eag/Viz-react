@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Form as FinalForm } from 'react-final-form';
 import { useParams } from 'react-router-dom';

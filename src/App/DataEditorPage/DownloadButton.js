@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';

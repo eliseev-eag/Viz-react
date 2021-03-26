@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { debounce, uniq } from 'lodash-es';
 import { Select } from 'antd';
 import { ID_FACTORY, NAME_FACTORY } from './constants';

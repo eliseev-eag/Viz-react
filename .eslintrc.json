@@ -20,6 +20,7 @@
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "sort-imports": [
