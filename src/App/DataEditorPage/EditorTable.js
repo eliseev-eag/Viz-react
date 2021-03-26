@@ -62,6 +62,7 @@ const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
     [onSelect],
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSearch = useCallback(
     debounce((value) => setFilter(value)),
     [],

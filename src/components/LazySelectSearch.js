@@ -16,6 +16,7 @@ const LazySelectSearch = ({
   optionNameFactory = NAME_FACTORY,
 }) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSearch = useCallback(
     debounce((inputValue) => {
       setFilteredOptions(

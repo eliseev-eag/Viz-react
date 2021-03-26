@@ -51,6 +51,7 @@ const wrapIntoDebouncedInput = (Component) =>
     ...otherProps
   }) {
     const [viewValue, setViewValue] = useState(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const onChangeDebounced = useCallback(
       debounce((updatedValue) => {
         onChangeFormProps(updatedValue);
