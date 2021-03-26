@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAEA,KACE,QAAS,CACT,SAAU,CACV,sBACF","file":"main.2d9e4167.chunk.css","sourcesContent":["@import '~antd/dist/antd.css';\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif;\n}\n"]}
