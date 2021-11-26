@@ -10,11 +10,11 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '10.x'
+          node-version: '12.x'
       - name: npm install, build, and test
         run: |
           npm ci
@@ -23,9 +23,8 @@ jobs:
         env:
           CI: true
       - name: Deploy to github pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_PAGES_TOKEN }}
-          BASE_BRANCH: master # The branch the action should deploy from.
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
+          github_token: ${{ secrets.GITHUB_PAGES_TOKEN }}
+          publish_branch: gh-pages # The branch the action should deploy to.
+          publish_dir: build # The folder the action should deploy.
