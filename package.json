@@ -11,7 +11,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src --max-warnings=0"
   },
   "browserslist": [
     ">0.2%",
@@ -20,26 +21,26 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@ant-design/icons": "^4.6.2",
-    "antd": "^4.14.1",
-    "final-form": "^4.20.2",
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.17.1",
+    "final-form": "^4.20.4",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-final-form": "^6.5.3",
-    "react-redux": "^7.2.3",
+    "react-final-form": "^6.5.7",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
-    "redux": "^4.0.5",
+    "redux": "^4.1.2",
     "redux-actions": "^2.6.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.4.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.5.0"
   }
 }

@@ -6,42 +6,45 @@ import DateBox from './DateBox';
 import SelectBox from './SelectBox';
 import LazySelectSearch from './LazySelectSearch';
 
-const wrapIntoField = (Component) => ({
-  name,
-  label,
-  validate,
-  allowNull = true,
-  format = identity,
-  parse = identity,
-  ...otherProps
-}) => (
-  <Field
-    name={name}
-    format={format}
-    parse={parse}
-    allowNull={allowNull}
-    validate={validate}
-  >
-    {({
-      input: { value, onChange, onBlur, onFocus },
-      meta: { invalid, touched, error },
-    }) => (
-      <Form.Item
-        label={label}
-        validateStatus={touched && invalid ? 'error' : 'success'}
-        help={touched && invalid ? error : undefined}
+const wrapIntoField =
+  (Component) =>
+  ({
+    name,
+    label,
+    validate,
+    allowNull = true,
+    format = identity,
+    parse = identity,
+    ...otherProps
+  }) =>
+    (
+      <Field
+        name={name}
+        format={format}
+        parse={parse}
+        allowNull={allowNull}
+        validate={validate}
       >
-        <Component
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          {...otherProps}
-        />
-      </Form.Item>
-    )}
-  </Field>
-);
+        {({
+          input: { value, onChange, onBlur, onFocus },
+          meta: { invalid, touched, error },
+        }) => (
+          <Form.Item
+            label={label}
+            validateStatus={touched && invalid ? 'error' : 'success'}
+            help={touched && invalid ? error : undefined}
+          >
+            <Component
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              {...otherProps}
+            />
+          </Form.Item>
+        )}
+      </Field>
+    );
 
 const wrapIntoDebouncedInput = (Component) =>
   function DebouncedInput({
