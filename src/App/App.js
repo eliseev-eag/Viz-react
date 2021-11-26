@@ -2,15 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { EditOutlined, PieChartOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import { loadEvents } from '../ducks';
-import DataViewPage from './DataViewPage';
 import DataEditorPage from './DataEditorPage';
-import { editorDataPage, viewDataPage } from './routes';
+import { editorDataPage } from './routes';
 
-const ROUTES = [viewDataPage, editorDataPage];
+const ROUTES = [editorDataPage];
 
-const FULL_SIDER_WIDTH = 240;
+const FULL_SLIDER_WIDTH = 240;
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -31,7 +30,7 @@ const App = () => {
       <Layout.Sider
         theme="dark"
         collapsible
-        width={FULL_SIDER_WIDTH}
+        width={FULL_SLIDER_WIDTH}
         collapsed={collapsed}
         onCollapse={setCollapsed}
         style={{
@@ -42,12 +41,6 @@ const App = () => {
         }}
       >
         <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
-          <Menu.Item key={viewDataPage}>
-            <Link to={viewDataPage}>
-              <PieChartOutlined />
-              <span>Просмотр данных</span>
-            </Link>
-          </Menu.Item>
           <Menu.Item key={editorDataPage}>
             <Link to={editorDataPage}>
               <EditOutlined />
@@ -58,15 +51,14 @@ const App = () => {
       </Layout.Sider>
       <Layout
         style={{
-          marginLeft: collapsed ? 80 : FULL_SIDER_WIDTH,
+          marginLeft: collapsed ? 80 : FULL_SLIDER_WIDTH,
           transition: 'margin 0.2s',
         }}
       >
         <Layout.Content>
           <Switch>
-            <Route path={viewDataPage} component={DataViewPage} />
             <Route path={editorDataPage} component={DataEditorPage} />
-            <Redirect to={viewDataPage} />
+            <Redirect to={editorDataPage} />
           </Switch>
         </Layout.Content>
       </Layout>

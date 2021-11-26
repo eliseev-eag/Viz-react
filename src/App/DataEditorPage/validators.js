@@ -1,5 +1,4 @@
 import { isArray, isNil } from 'lodash-es';
-import {} from 'moment';
 
 export const required = (value) =>
   isNil(value) || value === '' || (isArray(value) && value.length === 0)

@@ -23,6 +23,7 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
     "sort-imports": [
       "error",
       {

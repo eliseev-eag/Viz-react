@@ -31,11 +31,9 @@
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
-    "react-visjs-timeline": "^1.6.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
-    "redux-thunk": "^2.3.0",
-    "vis-timeline": "^7.4.6"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1",
