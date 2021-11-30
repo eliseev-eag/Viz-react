@@ -3,7 +3,8 @@
     "react-app",
     "airbnb",
     "plugin:prettier/recommended",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:cypress/recommended"
   ],
   "settings": {
     "import/resolver": {

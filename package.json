@@ -12,7 +12,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src --max-warnings=0"
+    "lint": "eslint --max-warnings=0 ./src ./cypress"
   },
   "browserslist": [
     ">0.2%",
@@ -37,8 +37,10 @@
     "redux-thunk": "^2.4.0"
   },
   "devDependencies": {
+    "cypress": "^9.1.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.5.0"
