@@ -35,6 +35,7 @@ const wrapIntoField =
             help={touched && invalid ? error : undefined}
           >
             <Component
+              name={name}
               value={value}
               onChange={onChange}
               onBlur={onBlur}

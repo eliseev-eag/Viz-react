@@ -159,7 +159,7 @@ const EventForm = ({ onSubmit, onClose, title }) => {
                 textAlign: 'right',
               }}
             >
-              <Button htmlType="submit" type="primary">
+              <Button htmlType="submit" type="primary" data-id="save-button">
                 Сохранить
               </Button>
             </div>

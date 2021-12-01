@@ -103,13 +103,14 @@ const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
           padding: '10px 20px',
         }}
       >
-        <Button type="primary" onClick={onAdd}>
+        <Button type="primary" onClick={onAdd} data-id="add-button">
           Добавить
         </Button>
         <Input.Search
           placeholder="Введите значение для поиска"
           onSearch={onSearch}
           style={{ width: 400 }}
+          data-id="search"
         />
       </div>
       <Table
