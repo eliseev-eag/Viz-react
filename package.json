@@ -14,6 +14,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --max-warnings=0 ./src ./cypress",
     "cypress:run": "cypress run",
+    "cypress:open": "cypress open",
     "e2e": "run-p --race serve cypress:run",
     "serve": "serve ."
   },

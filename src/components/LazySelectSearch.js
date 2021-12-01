@@ -14,6 +14,7 @@ const LazySelectSearch = ({
   optionKeyFactory = ID_FACTORY,
   optionValueFactory = ID_FACTORY,
   optionNameFactory = NAME_FACTORY,
+  ...selectProps
 }) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,6 +65,7 @@ const LazySelectSearch = ({
 
   return (
     <Select
+      {...selectProps}
       placeholder={placeholder}
       mode="multiple"
       filterOption={false}

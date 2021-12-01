@@ -19,7 +19,8 @@ import {
 
 const typeNameFactory = (it) => it.type;
 
-const patronNameFactory = (it) => `${it.surname} ${it.name} ${it.patron}`;
+const patronNameFactory = (it) =>
+  [it.surname, it.name, it.patron].filter(Boolean).join(' ');
 
 const convertEventToFormFormat = (event) => ({
   ...event,
