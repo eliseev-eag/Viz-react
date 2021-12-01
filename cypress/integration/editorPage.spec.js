@@ -3,14 +3,12 @@
 describe('Editor Page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
-
-    cy.get('[data-id=search]').as('search');
   });
 
   it('Search by event name works', () => {
     const eventName = 'Польско-тевтонская война';
 
-    cy.get('@search').type(`${eventName}{enter}`);
+    cy.searchEventByName(eventName);
 
     cy.get('table tbody tr').each(($row) => {
       expect($row).include.text(eventName);
@@ -20,7 +18,7 @@ describe('Editor Page', () => {
   it('Delete element works', () => {
     const eventName = 'Польско-тевтонская война';
 
-    cy.get('@search').type(`${eventName}{enter}`);
+    cy.searchEventByName(eventName);
 
     cy.get('table tbody tr').contains(eventName).should('have.length', 1);
 
@@ -28,7 +26,7 @@ describe('Editor Page', () => {
 
     cy.get('.ant-popover-content').contains('Да').click();
 
-    cy.get('@search').clear().type(`${eventName}{enter}`);
+    cy.searchEventByName(eventName);
 
     cy.get('table tbody tr').contains(eventName).should('have.length', 0);
   });
@@ -64,7 +62,7 @@ describe('Editor Page', () => {
 
     cy.get('.ant-message').contains('Событие успешно добавлено');
 
-    cy.get('@search').type(`${newEventData.name}{enter}`);
+    cy.searchEventByName(newEventData.name);
     cy.get('table tbody tr').as('row').should('have.length', 1);
     cy.get('@row').should('contain.text', newEventData.name);
     cy.get('@row').should('contain.text', newEventData.startDate);
