@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Route, useHistory } from 'react-router-dom';
 import { Button, Input, Layout, message, PageHeader } from 'antd';
-import { debounce, uniqueId } from 'lodash-es';
+import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
+import { uniqueId } from 'lodash-es';
 import { addEvent, deleteEvent, editEvent } from 'ducks';
 import {
   eventsSelector,
@@ -11,16 +12,15 @@ import {
   toponymsSelector,
 } from 'selectors';
 import { editorDataPage } from 'App/routes';
-import DownloadButton from './DownloadButton';
-import EditorTable from './EditorTable';
+import EventsTable from './EventsTable';
 import EventForm from './EventForm';
 import { addRoute, editRoute } from './routes';
 
 const DataEditorPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const [filter, setFilter] = useState('');
+
   const eventTypes = useSelector(eventTypesSelector);
   const persons = useSelector(personsSelector);
   const toponyms = useSelector(toponymsSelector);
@@ -45,12 +45,6 @@ const DataEditorPage = () => {
         }))
         .filter((it) => it.name.toLowerCase().includes(filter.toLowerCase())),
     [events, eventTypes, persons, toponyms, filter],
-  );
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onSearch = useCallback(
-    debounce((value) => setFilter(value)),
-    [],
   );
 
   const onSelect = useCallback(
@@ -106,6 +100,17 @@ const DataEditorPage = () => {
     history.push(addRoute);
   }, [history]);
 
+  const contentForExportButton = useMemo(
+    () =>
+      JSON.stringify({
+        events,
+        eventTypes,
+        toponyms,
+        persons,
+      }),
+    [events, eventTypes, toponyms, persons],
+  );
+
   return (
     <Layout>
       <PageHeader
@@ -113,14 +118,25 @@ const DataEditorPage = () => {
         title={
           <Input.Search
             placeholder="Введите значение для поиска"
-            onSearch={onSearch}
+            onSearch={setFilter}
             style={{ width: 400 }}
             data-id="search"
           />
         }
         extra={
           <>
-            <DownloadButton />{' '}
+            <Button
+              data-id="export-button"
+              download="events.json"
+              href={URL.createObjectURL(
+                new Blob([contentForExportButton], {
+                  type: 'application/json',
+                }),
+              )}
+            >
+              <DownloadOutlined />
+              Экспортировать
+            </Button>
             <Button type="primary" onClick={showAddForm} data-id="add-button">
               Добавить
             </Button>
@@ -128,7 +144,7 @@ const DataEditorPage = () => {
         }
       />
       <Layout.Content>
-        <EditorTable
+        <EventsTable
           events={eventsWithNestedData}
           eventTypes={eventTypes}
           onSelect={onSelect}

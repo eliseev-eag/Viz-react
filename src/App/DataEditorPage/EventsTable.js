@@ -22,7 +22,7 @@ const startDateSorter = (a, b) => a.startDate - b.startDate;
 
 const endDateSorter = (a, b) => a.endDate - b.endDate;
 
-const EditorTable = ({ events, eventTypes, onSelect, deleteRow }) => {
+const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
   const onRow = useCallback(
     (record) => ({
       onClick: onSelect ? () => onSelect(record) : undefined,
@@ -105,4 +105,4 @@ const EditorTable = ({ events, eventTypes, onSelect, deleteRow }) => {
   );
 };
 
-export default EditorTable;
+export default EventsTable;
