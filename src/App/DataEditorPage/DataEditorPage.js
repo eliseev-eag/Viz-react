@@ -1,9 +1,15 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useCallback, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Route, useHistory } from 'react-router-dom';
-import { Layout, message, PageHeader } from 'antd';
-import { uniqueId } from 'lodash-es';
+import { Button, Input, Layout, message, PageHeader } from 'antd';
+import { debounce, uniqueId } from 'lodash-es';
 import { addEvent, deleteEvent, editEvent } from 'ducks';
+import {
+  eventsSelector,
+  eventTypesSelector,
+  personsSelector,
+  toponymsSelector,
+} from 'selectors';
 import { editorDataPage } from 'App/routes';
 import DownloadButton from './DownloadButton';
 import EditorTable from './EditorTable';
@@ -13,6 +19,39 @@ import { addRoute, editRoute } from './routes';
 const DataEditorPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [filter, setFilter] = useState('');
+  const eventTypes = useSelector(eventTypesSelector);
+  const persons = useSelector(personsSelector);
+  const toponyms = useSelector(toponymsSelector);
+  const events = useSelector(eventsSelector);
+
+  const eventsWithNestedData = useMemo(
+    () =>
+      events
+        .map((event) => ({
+          ...event,
+          type: eventTypes.find((type) => type.id === event.type),
+          persons: event.persons
+            ? event.persons.map((personId) =>
+                persons.find((person) => person.id === personId),
+              )
+            : [],
+          toponyms: event.toponyms
+            ? event.toponyms.map((toponymId) =>
+                toponyms.find((toponym) => toponym.id === toponymId),
+              )
+            : [],
+        }))
+        .filter((it) => it.name.toLowerCase().includes(filter.toLowerCase())),
+    [events, eventTypes, persons, toponyms, filter],
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onSearch = useCallback(
+    debounce((value) => setFilter(value)),
+    [],
+  );
 
   const onSelect = useCallback(
     (value) => {
@@ -71,12 +110,27 @@ const DataEditorPage = () => {
     <Layout>
       <PageHeader
         ghost={false}
-        title="Редактирование данных"
-        extra={<DownloadButton />}
+        title={
+          <Input.Search
+            placeholder="Введите значение для поиска"
+            onSearch={onSearch}
+            style={{ width: 400 }}
+            data-id="search"
+          />
+        }
+        extra={
+          <>
+            <DownloadButton />{' '}
+            <Button type="primary" onClick={showAddForm} data-id="add-button">
+              Добавить
+            </Button>
+          </>
+        }
       />
       <Layout.Content>
         <EditorTable
-          onAdd={showAddForm}
+          events={eventsWithNestedData}
+          eventTypes={eventTypes}
           onSelect={onSelect}
           deleteRow={onDelete}
         />
