@@ -23,6 +23,7 @@ const DownloadButton = ({ filename = 'events.json' }) => {
 
   return (
     <Button
+      data-id="export-button"
       download={filename}
       href={URL.createObjectURL(
         new Blob([content], { type: 'application/json' }),
