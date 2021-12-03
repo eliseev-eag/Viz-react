@@ -12,11 +12,13 @@ const typeFormatter = (type) => type.type;
 
 const personsFormatter = (persons) =>
   persons
-    .map((person) => `${person.surname} ${person.name} ${person.patron}`)
-    .join();
+    .map((person) =>
+      [person.surname, person.name, person.patron].filter(Boolean).join(' '),
+    )
+    .join(', ');
 
 const toponymsFormatter = (toponyms) =>
-  toponyms.map((toponym) => toponym.name).join();
+  toponyms.map((toponym) => toponym.name).join(', ');
 
 const startDateSorter = (a, b) => a.startDate - b.startDate;
 
