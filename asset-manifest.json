@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Viz-react/static/css/main.85583000.chunk.css",
-    "main.js": "/Viz-react/static/js/main.32d6ff93.chunk.js",
-    "main.js.map": "/Viz-react/static/js/main.32d6ff93.chunk.js.map",
+    "main.js": "/Viz-react/static/js/main.38c36ab1.chunk.js",
+    "main.js.map": "/Viz-react/static/js/main.38c36ab1.chunk.js.map",
     "runtime-main.js": "/Viz-react/static/js/runtime-main.eb8c1905.js",
     "runtime-main.js.map": "/Viz-react/static/js/runtime-main.eb8c1905.js.map",
     "static/css/2.e159e14a.chunk.css": "/Viz-react/static/css/2.e159e14a.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.e159e14a.chunk.css",
     "static/js/2.d0c3bcb5.chunk.js",
     "static/css/main.85583000.chunk.css",
-    "static/js/main.32d6ff93.chunk.js"
+    "static/js/main.38c36ab1.chunk.js"
   ]
 }
