@@ -41,11 +41,8 @@ const App = () => {
         }}
       >
         <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
-          <Menu.Item key={editorDataPage}>
-            <Link to={editorDataPage}>
-              <EditOutlined />
-              <span>Редактирование данных</span>
-            </Link>
+          <Menu.Item key={editorDataPage} icon={<EditOutlined />}>
+            <Link to={editorDataPage}>Редактирование данных</Link>
           </Menu.Item>
         </Menu>
       </Layout.Sider>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Route, useHistory } from 'react-router-dom';
 import { Button, Input, Layout, message, PageHeader } from 'antd';
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { uniqueId } from 'lodash-es';
 import { addEvent, deleteEvent, editEvent } from 'ducks';
 import {
@@ -128,16 +129,21 @@ const DataEditorPage = () => {
             <Button
               data-id="export-button"
               download="events.json"
+              icon={<DownloadOutlined />}
               href={URL.createObjectURL(
                 new Blob([contentForExportButton], {
                   type: 'application/json',
                 }),
               )}
             >
-              <DownloadOutlined />
               Экспортировать
             </Button>
-            <Button type="primary" onClick={showAddForm} data-id="add-button">
+            <Button
+              type="primary"
+              onClick={showAddForm}
+              data-id="add-button"
+              icon={<PlusOutlined />}
+            >
               Добавить
             </Button>
           </>
