@@ -9,8 +9,10 @@ const loadEventsFailure = createAction('loadEventsFailure');
 export const loadEvents = () => async (dispatch) => {
   dispatch(loadEventsRequest());
   try {
-    const eventsData = await import('./events.json');
-    dispatch(loadEventsSuccess(eventsData));
+    const response = await fetch(`${process.env.PUBLIC_URL}/events.json`);
+    const events = await response.json();
+
+    dispatch(loadEventsSuccess(events));
   } catch (error) {
     dispatch(loadEventsFailure(error));
   }
