@@ -22,6 +22,12 @@ const startDateSorter = (a, b) => a.startDate - b.startDate;
 
 const endDateSorter = (a, b) => a.endDate - b.endDate;
 
+const paginationOptions = {
+  defaultPageSize: 20,
+  pageSizeOptions: [20, 50, 100],
+  position: ['bottomCenter'],
+};
+
 const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
   const onRow = useCallback(
     (record) => ({
@@ -64,7 +70,12 @@ const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
   );
 
   return (
-    <Table dataSource={events} rowKey={(event) => event.id} onRow={onRow}>
+    <Table
+      dataSource={events}
+      rowKey={(event) => event.id}
+      onRow={onRow}
+      pagination={paginationOptions}
+    >
       <Table.Column title="Название" dataIndex="name" width="35%" />
       <Table.Column
         title="Дата начала"
