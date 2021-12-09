@@ -1,0 +1,11 @@
+.events-table :global(.ant-table-content) {
+    height: calc(100vh - 72px - 64px);
+    overflow: auto;
+    position: relative;
+}
+
+.events-table thead :global(.ant-table-cell){
+    z-index: 2;
+    position: sticky;
+    top: 0;
+}

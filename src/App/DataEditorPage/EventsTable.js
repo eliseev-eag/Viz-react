@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { Button, Popconfirm, Table } from 'antd';
+import classNames from './events-table.module.css';
 
 const dateFormatter = (date) =>
   date.toLocaleString('ru', {
@@ -77,6 +78,7 @@ const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
       rowKey={(event) => event.id}
       onRow={onRow}
       pagination={paginationOptions}
+      className={classNames['events-table']}
     >
       <Table.Column title="Название" dataIndex="name" width="35%" />
       <Table.Column
