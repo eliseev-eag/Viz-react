@@ -9,7 +9,7 @@ import {
   eventTypesSelector,
   personsSelector,
   toponymsSelector,
-} from 'selectors';
+} from 'events-slice';
 import {
   composeValidators,
   dateLessThanOrEqual,

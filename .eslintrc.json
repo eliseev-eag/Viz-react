@@ -25,6 +25,8 @@
     "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
+    "no-param-reassign":"off",
+    "no-restricted-syntax": "off",
     "no-console":"warn",
     "no-debugger":"warn",
     "sort-imports": [

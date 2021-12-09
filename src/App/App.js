@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import { loadEvents } from '../ducks';
+import { loadEvents } from '../events-slice';
 import DataEditorPage from './DataEditorPage';
 import { editorDataPage } from './routes';
 

@@ -5,13 +5,14 @@ import { Button, Input, Layout, message, PageHeader } from 'antd';
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { uniqueId } from 'lodash-es';
-import { addEvent, deleteEvent, editEvent } from 'ducks';
 import {
-  eventsSelector,
+  addEvent,
+  deleteEvent,
+  editEvent,
+  eventsComplexSelector,
+  eventsWithNestedDataSelector,
   eventTypesSelector,
-  personsSelector,
-  toponymsSelector,
-} from 'selectors';
+} from 'events-slice';
 import { editorDataPage } from 'App/routes';
 import EventsTable from './EventsTable';
 import EventForm from './EventForm';
@@ -21,31 +22,15 @@ const DataEditorPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [filter, setFilter] = useState('');
-
   const eventTypes = useSelector(eventTypesSelector);
-  const persons = useSelector(personsSelector);
-  const toponyms = useSelector(toponymsSelector);
-  const events = useSelector(eventsSelector);
-
+  const complexData = useSelector(eventsComplexSelector);
+  const denormalizedEvents = useSelector(eventsWithNestedDataSelector);
   const eventsWithNestedData = useMemo(
     () =>
-      events
-        .map((event) => ({
-          ...event,
-          type: eventTypes.find((type) => type.id === event.type),
-          persons: event.persons
-            ? event.persons.map((personId) =>
-                persons.find((person) => person.id === personId),
-              )
-            : [],
-          toponyms: event.toponyms
-            ? event.toponyms.map((toponymId) =>
-                toponyms.find((toponym) => toponym.id === toponymId),
-              )
-            : [],
-        }))
-        .filter((it) => it.name.toLowerCase().includes(filter.toLowerCase())),
-    [events, eventTypes, persons, toponyms, filter],
+      denormalizedEvents.filter((it) =>
+        it.name.toLowerCase().includes(filter.toLowerCase()),
+      ),
+    [denormalizedEvents, filter],
   );
 
   const onSelect = useCallback(
@@ -102,14 +87,8 @@ const DataEditorPage = () => {
   }, [history]);
 
   const contentForExportButton = useMemo(
-    () =>
-      JSON.stringify({
-        events,
-        eventTypes,
-        toponyms,
-        persons,
-      }),
-    [events, eventTypes, toponyms, persons],
+    () => JSON.stringify(complexData),
+    [complexData],
   );
 
   return (
