@@ -50,6 +50,24 @@ describe('Editor Page', () => {
     });
   });
 
+  it('Search by event name is case-insensitive', () => {
+    const eventName = 'Польско-тевтонская война';
+
+    cy.searchEventByName(eventName.toUpperCase());
+
+    cy.get('table tbody tr').each(($row) => {
+      expect($row).include.text(eventName);
+    });
+
+    cy.get('[data-id=search]').clear().type('{enter}');
+
+    cy.searchEventByName(eventName.toLowerCase());
+
+    cy.get('table tbody tr').each(($row) => {
+      expect($row).include.text(eventName);
+    });
+  });
+
   it('Deleting element', () => {
     const eventName = 'Польско-тевтонская война';
 
