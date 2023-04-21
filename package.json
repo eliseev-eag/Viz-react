@@ -25,28 +25,28 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
-    "@reduxjs/toolkit": "^1.6.2",
-    "antd": "^4.17.1",
-    "final-form": "^4.20.4",
+    "@ant-design/icons": "^5.0.1",
+    "@reduxjs/toolkit": "^1.9.5",
+    "antd": "^5.4.4",
+    "final-form": "^4.20.9",
     "lodash-es": "^4.17.21",
-    "moment": "^2.29.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-final-form": "^6.5.7",
-    "react-redux": "^7.2.6",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3"
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-final-form": "^6.5.9",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
-    "cypress": "^9.1.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-prettier": "^3.3.1",
+    "cypress": "^12.10.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-cypress": "^2.13.2",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.5.0",
-    "serve": "^13.0.2"
+    "prettier": "^2.8.7",
+    "serve": "^14.2.0"
   }
 }

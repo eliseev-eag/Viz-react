@@ -3,7 +3,7 @@ import { ID_FACTORY, NAME_FACTORY } from './constants';
 
 const OPTIONS_DEFAULT_VALUE = [];
 
-const SelectBox = ({
+export const SelectBox = ({
   options = OPTIONS_DEFAULT_VALUE,
   optionKeyFactory = ID_FACTORY,
   optionValueFactory = ID_FACTORY,
@@ -21,4 +21,3 @@ const SelectBox = ({
     ))}
   </Select>
 );
-export default SelectBox;

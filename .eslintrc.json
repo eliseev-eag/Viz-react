@@ -9,9 +9,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": [
-          "src"
-        ]
+        "paths": ["src"]
       }
     }
   },
@@ -20,15 +18,22 @@
     "react-hooks/exhaustive-deps": "error",
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
+    "react/function-component-definition": [
+      "warn",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-curly-newline": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
-    "no-param-reassign":"off",
+    "no-param-reassign": "off",
     "no-restricted-syntax": "off",
-    "no-console":"warn",
-    "no-debugger":"warn",
+    "no-console": "warn",
+    "no-debugger": "warn",
     "sort-imports": [
       "error",
       {

@@ -37,7 +37,7 @@ const INITIAL_EVENT_VALUE = {
   persons: [],
 };
 
-const EventForm = ({ onSubmit, onClose, title }) => {
+export const EventForm = ({ onSubmit, onClose, title }) => {
   const eventTypes = useSelector(eventTypesSelector);
   const toponyms = useSelector(toponymsSelector);
   const persons = useSelector(personsSelector);
@@ -170,5 +170,3 @@ const EventForm = ({ onSubmit, onClose, title }) => {
     </Drawer>
   );
 };
-
-export default EventForm;

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { generatePath, Route, useHistory } from 'react-router-dom';
-import { Button, Input, Layout, message, PageHeader } from 'antd';
+import { generatePath, Route, Routes, useNavigate } from 'react-router-dom';
+import { Button, Input, message } from 'antd';
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { uniqueId } from 'lodash-es';
@@ -14,13 +14,14 @@ import {
   eventTypesSelector,
 } from 'events-slice';
 import { editorDataPage } from 'App/routes';
-import EventsTable from './EventsTable';
-import EventForm from './EventForm';
+import { EventsTable } from './EventsTable';
+import { EventForm } from './EventForm';
 import { addRoute, editRoute } from './routes';
+import styles from './styles.module.css';
 
-const DataEditorPage = () => {
+export const DataEditorPage = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [filter, setFilter] = useState('');
   const eventTypes = useSelector(eventTypesSelector);
   const complexData = useSelector(eventsComplexSelector);
@@ -35,14 +36,16 @@ const DataEditorPage = () => {
 
   const onSelect = useCallback(
     (value) => {
-      history.push(generatePath(editRoute, { id: value.id }));
+      navigate(generatePath(editRoute, { id: value.id }), {
+        relative: 'route',
+      });
     },
-    [history],
+    [navigate],
   );
 
   const closeForm = useCallback(() => {
-    history.push(editorDataPage);
-  }, [history]);
+    navigate(editorDataPage);
+  }, [navigate]);
 
   const changeEvent = useCallback(
     (value) => {
@@ -83,8 +86,10 @@ const DataEditorPage = () => {
   );
 
   const showAddForm = useCallback(() => {
-    history.push(addRoute);
-  }, [history]);
+    navigate(addRoute, {
+      relative: 'route',
+    });
+  }, [navigate]);
 
   const contentForExportButton = useMemo(
     () => JSON.stringify(complexData),
@@ -92,19 +97,16 @@ const DataEditorPage = () => {
   );
 
   return (
-    <Layout>
-      <PageHeader
-        ghost={false}
-        title={
+    <>
+      <div>
+        <div className={styles.pageHeader}>
           <Input.Search
             placeholder="Введите значение для поиска"
             onSearch={setFilter}
             style={{ width: 400 }}
             data-id="search"
           />
-        }
-        extra={
-          <>
+          <div className={styles.buttons}>
             <Button
               data-id="export-button"
               download="events.json"
@@ -125,39 +127,37 @@ const DataEditorPage = () => {
             >
               Добавить
             </Button>
-          </>
-        }
-      />
-      <Layout.Content>
+          </div>
+        </div>
         <EventsTable
           events={eventsWithNestedData}
           eventTypes={eventTypes}
           onSelect={onSelect}
           deleteRow={onDelete}
         />
+      </div>
+      <Routes>
         <Route
           path={addRoute}
-          render={() => (
+          element={
             <EventForm
               onClose={closeForm}
               onSubmit={createEvent}
               title="Добавление события"
             />
-          )}
+          }
         />
         <Route
           path={editRoute}
-          render={() => (
+          element={
             <EventForm
               onClose={closeForm}
               onSubmit={changeEvent}
               title="Редактирование события"
             />
-          )}
+          }
         />
-      </Layout.Content>
-    </Layout>
+      </Routes>
+    </>
   );
 };
-
-export default DataEditorPage;

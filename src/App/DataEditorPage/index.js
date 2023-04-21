@@ -1,1 +1,1 @@
-export { default } from './DataEditorPage';
+export { DataEditorPage } from './DataEditorPage';

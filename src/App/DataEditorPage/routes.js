@@ -1,5 +1,3 @@
-import { editorDataPage } from 'App/routes';
+export const addRoute = `add`;
 
-export const addRoute = `${editorDataPage}/add`;
-
-export const editRoute = `${editorDataPage}/edit/:id`;
+export const editRoute = `edit/:id`;

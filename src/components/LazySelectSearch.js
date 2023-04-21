@@ -5,7 +5,7 @@ import { ID_FACTORY, NAME_FACTORY } from './constants';
 
 const DEFAULT_VALUE = [];
 
-const LazySelectSearch = ({
+export const LazySelectSearch = ({
   allOptions,
   value = DEFAULT_VALUE,
   onChange,
@@ -94,5 +94,3 @@ const LazySelectSearch = ({
     </Select>
   );
 };
-
-export default LazySelectSearch;

@@ -2,9 +2,9 @@ import { useCallback, useState } from 'react';
 import { debounce, identity } from 'lodash-es';
 import { Field } from 'react-final-form';
 import { Form, Input } from 'antd';
-import DateBox from './DateBox';
-import SelectBox from './SelectBox';
-import LazySelectSearch from './LazySelectSearch';
+import { DateBox } from './DateBox';
+import { SelectBox } from './SelectBox';
+import { LazySelectSearch } from './LazySelectSearch';
 
 const wrapIntoField =
   (Component) =>
@@ -16,8 +16,8 @@ const wrapIntoField =
     format = identity,
     parse = identity,
     ...otherProps
-  }) =>
-    (
+  }) => {
+    return (
       <Field
         name={name}
         format={format}
@@ -46,14 +46,16 @@ const wrapIntoField =
         )}
       </Field>
     );
+  };
 
-const wrapIntoDebouncedInput = (Component) =>
-  function DebouncedInput({
+const wrapIntoDebouncedInput =
+  (Component) =>
+  ({
     debounceTimeout = 300,
     onChange: onChangeFormProps,
     value,
     ...otherProps
-  }) {
+  }) => {
     const [viewValue, setViewValue] = useState(value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const onChangeDebounced = useCallback(

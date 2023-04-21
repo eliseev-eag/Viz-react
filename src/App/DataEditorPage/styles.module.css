@@ -1,0 +1,13 @@
+.pageHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background-color: #fff;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}

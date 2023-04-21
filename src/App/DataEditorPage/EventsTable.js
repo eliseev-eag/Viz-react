@@ -31,7 +31,7 @@ const paginationOptions = {
   position: ['bottomCenter'],
 };
 
-const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
+export const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
   const onRow = useCallback(
     (record) => ({
       onClick: onSelect ? () => onSelect(record) : undefined,
@@ -119,5 +119,3 @@ const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
     </Table>
   );
 };
-
-export default EventsTable;

@@ -1,25 +1,32 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Link, matchPath, Outlet, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { loadEvents } from '../events-slice';
-import DataEditorPage from './DataEditorPage';
 import { editorDataPage } from './routes';
 
 const ROUTES = [editorDataPage];
 
 const FULL_SLIDER_WIDTH = 240;
 
-const App = () => {
+export const App = () => {
   const [collapsed, setCollapsed] = useState(true);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const selectedMenuKeys = useMemo(
-    () => [ROUTES.find((route) => route === pathname)],
+    () => [ROUTES.find((route) => !!matchPath(route, pathname))],
     [pathname],
   );
+
+  const menuItems = [
+    {
+      key: editorDataPage,
+      label: <Link to={editorDataPage}>Редактирование данных</Link>,
+      icon: <EditOutlined />,
+    },
+  ];
 
   useEffect(() => {
     dispatch(loadEvents());
@@ -40,11 +47,12 @@ const App = () => {
           left: 0,
         }}
       >
-        <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
-          <Menu.Item key={editorDataPage} icon={<EditOutlined />}>
-            <Link to={editorDataPage}>Редактирование данных</Link>
-          </Menu.Item>
-        </Menu>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={selectedMenuKeys}
+          items={menuItems}
+        />
       </Layout.Sider>
       <Layout
         style={{
@@ -53,14 +61,9 @@ const App = () => {
         }}
       >
         <Layout.Content>
-          <Switch>
-            <Route path={editorDataPage} component={DataEditorPage} />
-            <Redirect to={editorDataPage} />
-          </Switch>
+          <Outlet />
         </Layout.Content>
       </Layout>
     </Layout>
   );
 };
-
-export default App;

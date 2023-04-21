@@ -59,7 +59,9 @@ describe('Editor Page', () => {
       expect($row).include.text(eventName);
     });
 
-    cy.get('[data-id=search]').clear().type('{enter}');
+    cy.get('[data-id=search]');
+    cy.get('[data-id=search]').clear();
+    cy.get('[data-id=search]').type('{enter}');
 
     cy.searchEventByName(eventName.toLowerCase());
 
