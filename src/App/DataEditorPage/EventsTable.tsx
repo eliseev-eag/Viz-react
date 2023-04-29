@@ -1,39 +1,54 @@
 import { useCallback, useMemo } from 'react';
-import { Button, Popconfirm, Table } from 'antd';
-import classNames from './events-table.module.css';
+import { Button, Popconfirm, Table, TablePaginationConfig } from 'antd';
+import type { EventWithFullData, EventType, Person, Toponym } from 'src/types';
+import styles from './events-table.module.css';
 
-const dateFormatter = (date) =>
+const dateFormatter = (date: Date) =>
   date.toLocaleString('ru', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
   });
 
-const typeFormatter = (type) => type.type;
+const typeFormatter = (type: EventType) => type.type;
 
-const personsFormatter = (persons) =>
+const personsFormatter = (persons: Person[]) =>
   persons
     .map((person) =>
       [person.surname, person.name, person.patron].filter(Boolean).join(' '),
     )
     .join(', ');
 
-const toponymsFormatter = (toponyms) =>
+const toponymsFormatter = (toponyms: Toponym[]) =>
   toponyms.map((toponym) => toponym.name).join(', ');
 
-const startDateSorter = (a, b) => a.startDate - b.startDate;
+const startDateSorter = (a: EventWithFullData, b: EventWithFullData) =>
+  a.startDate.valueOf() - b.startDate.valueOf();
 
-const endDateSorter = (a, b) => a.endDate - b.endDate;
+const endDateSorter = (a: EventWithFullData, b: EventWithFullData) =>
+  a.endDate.valueOf() - b.endDate.valueOf();
 
-const paginationOptions = {
+const paginationOptions: TablePaginationConfig = {
   defaultPageSize: 20,
   pageSizeOptions: [20, 50, 100],
   position: ['bottomCenter'],
 };
 
-export const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
+type EventsTableProps = {
+  events: EventWithFullData[];
+  eventTypes: EventType[];
+  onSelect: (event: EventWithFullData) => void;
+  deleteRow: (event: EventWithFullData) => void;
+};
+
+export const EventsTable = ({
+  events,
+  eventTypes,
+  onSelect,
+  deleteRow,
+}: EventsTableProps) => {
   const onRow = useCallback(
-    (record) => ({
+    (record: EventWithFullData) => ({
       onClick: onSelect ? () => onSelect(record) : undefined,
     }),
     [onSelect],
@@ -48,15 +63,15 @@ export const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
     [eventTypes],
   );
 
-  const renderDeleteButton = (_, record) => (
+  const renderDeleteButton = (_: any, record: EventWithFullData) => (
     <Popconfirm
       title="Вы уверены?"
       onConfirm={(event) => {
-        event.stopPropagation();
+        event?.stopPropagation();
         deleteRow(record);
       }}
       onCancel={(event) => {
-        event.stopPropagation();
+        event?.stopPropagation();
       }}
       okText="Да"
       cancelText="Нет"
@@ -75,10 +90,10 @@ export const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
   return (
     <Table
       dataSource={events}
-      rowKey={(event) => event.id}
+      rowKey={(event: EventWithFullData) => event.id}
       onRow={onRow}
       pagination={paginationOptions}
-      className={classNames['events-table']}
+      className={styles['events-table']}
     >
       <Table.Column title="Название" dataIndex="name" width="35%" />
       <Table.Column
@@ -100,7 +115,9 @@ export const EventsTable = ({ events, eventTypes, onSelect, deleteRow }) => {
         dataIndex="type"
         width="10%"
         filters={eventTypesFilter}
-        onFilter={(value, record) => record.type.id === value}
+        onFilter={(value, record: EventWithFullData) =>
+          record.type.id === value
+        }
         render={typeFormatter}
       />
       <Table.Column

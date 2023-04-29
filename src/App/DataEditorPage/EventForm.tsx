@@ -1,15 +1,17 @@
+import type { Moment } from 'moment';
 import { useSelector } from 'react-redux';
 import { Form as FinalForm } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import { Button, Drawer, Form, Spin } from 'antd';
 import moment from 'moment';
-import { DateBox, LazySelectSearch, SelectBox, TextArea } from 'components';
+import { DateBox, LazySelectSearch, SelectBox, TextArea } from 'src/components';
+import type { Event, EventWithFullData, EventType, Person } from 'src/types';
 import {
   eventsSelector,
   eventTypesSelector,
   personsSelector,
   toponymsSelector,
-} from 'events-slice';
+} from 'src/events-slice';
 import {
   composeValidators,
   dateLessThanOrEqual,
@@ -17,12 +19,12 @@ import {
   required,
 } from './validators';
 
-const typeNameFactory = (it) => it.type;
+const typeNameFactory = (it: EventType) => it.type;
 
-const patronNameFactory = (it) =>
+const patronNameFactory = (it: Person) =>
   [it.surname, it.name, it.patron].filter(Boolean).join(' ');
 
-const convertEventToFormFormat = (event) => ({
+const convertEventToFormFormat = (event: Event) => ({
   ...event,
   startDate: moment(event.startDate),
   endDate: moment(event.endDate),
@@ -37,7 +39,13 @@ const INITIAL_EVENT_VALUE = {
   persons: [],
 };
 
-export const EventForm = ({ onSubmit, onClose, title }) => {
+type EventFormProps = {
+  onSubmit: (values: EventWithFullData) => void;
+  onClose: () => void;
+  title: string;
+};
+
+export const EventForm = ({ onSubmit, onClose, title }: EventFormProps) => {
   const eventTypes = useSelector(eventTypesSelector);
   const toponyms = useSelector(toponymsSelector);
   const persons = useSelector(personsSelector);
@@ -81,13 +89,13 @@ export const EventForm = ({ onSubmit, onClose, title }) => {
       onClose={onClose}
       placement="right"
       width={450}
-      visible
-      closable
-      destroyOnClose
+      open={true}
+      closable={true}
+      destroyOnClose={true}
     >
       <FinalForm
         initialValues={initialValues}
-        onSubmit={(values) => {
+        onSubmit={(values: EventWithFullData) => {
           onSubmit(values);
         }}
       >
@@ -132,6 +140,7 @@ export const EventForm = ({ onSubmit, onClose, title }) => {
               />
             </Form.Item>
             <Form.Item>
+              {/* @ts-expect-error */}
               <LazySelectSearch
                 name="toponyms"
                 label="Топонимы"
@@ -140,6 +149,7 @@ export const EventForm = ({ onSubmit, onClose, title }) => {
               />
             </Form.Item>
             <Form.Item>
+              {/* @ts-expect-error */}
               <LazySelectSearch
                 name="persons"
                 label="Действующие лица"

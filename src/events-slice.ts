@@ -4,14 +4,28 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import { orderBy, uniqueId } from 'lodash-es';
+import {
+  Event,
+  EventType,
+  Toponym,
+  Person,
+  EventWithFullData,
+} from 'src/types';
+
+type EventsSliceState = {
+  eventTypes: EventType[];
+  toponyms: Toponym[];
+  persons: Person[];
+  events: Event[];
+};
 
 export const loadEvents = createAsyncThunk('events/fetchEvents', async () => {
-  const response = await fetch(`${process.env.PUBLIC_URL}/events.json`);
+  const response = await fetch(`/events.json`);
   const events = await response.json();
-  return events;
+  return events as EventsSliceState;
 });
 
-const initialState = {
+const initialState: EventsSliceState = {
   eventTypes: [],
   persons: [],
   toponyms: [],
@@ -27,7 +41,7 @@ const eventsSlice = createSlice({
 
       for (const [index, value] of Object.entries(events)) {
         if (value.id === data.payload.id) {
-          events[index] = data.payload;
+          events[parseInt(index, 10)] = data.payload;
           break;
         }
       }
@@ -54,7 +68,7 @@ const eventsSlice = createSlice({
         ...otherFields,
         events: orderBy(
           events,
-          (event) => event.endDate - event.startDate,
+          (event) => event.endDate.getTime() - event.startDate.getTime(),
           'desc',
         ),
       };
@@ -64,10 +78,10 @@ const eventsSlice = createSlice({
 
 export const { addEvent, deleteEvent, editEvent } = eventsSlice.actions;
 
-export const eventsSelector = (state) => state.events;
-export const toponymsSelector = (state) => state.toponyms;
-export const personsSelector = (state) => state.persons;
-export const eventTypesSelector = (state) => state.eventTypes;
+export const eventsSelector = (state: EventsSliceState) => state.events;
+export const toponymsSelector = (state: EventsSliceState) => state.toponyms;
+export const personsSelector = (state: EventsSliceState) => state.persons;
+export const eventTypesSelector = (state: EventsSliceState) => state.eventTypes;
 
 export const eventsWithNestedDataSelector = createSelector(
   eventsSelector,

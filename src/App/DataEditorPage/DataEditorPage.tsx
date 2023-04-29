@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Route, Routes, useNavigate } from 'react-router-dom';
 import { Button, Input, message } from 'antd';
 import DownloadOutlined from '@ant-design/icons/DownloadOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import { uniqueId } from 'lodash-es';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import {
   addEvent,
   deleteEvent,
@@ -12,20 +12,21 @@ import {
   eventsComplexSelector,
   eventsWithNestedDataSelector,
   eventTypesSelector,
-} from 'events-slice';
-import { editorDataPage } from 'App/routes';
+} from 'src/events-slice';
+import type { EventWithFullData } from 'src/types';
+import { editorDataPage } from 'src/App/routes';
 import { EventsTable } from './EventsTable';
 import { EventForm } from './EventForm';
 import { addRoute, editRoute } from './routes';
 import styles from './styles.module.css';
 
 export const DataEditorPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [filter, setFilter] = useState('');
-  const eventTypes = useSelector(eventTypesSelector);
-  const complexData = useSelector(eventsComplexSelector);
-  const denormalizedEvents = useSelector(eventsWithNestedDataSelector);
+  const eventTypes = useAppSelector(eventTypesSelector);
+  const complexData = useAppSelector(eventsComplexSelector);
+  const denormalizedEvents = useAppSelector(eventsWithNestedDataSelector);
   const eventsWithNestedData = useMemo(
     () =>
       denormalizedEvents.filter((it) =>
@@ -35,8 +36,8 @@ export const DataEditorPage = () => {
   );
 
   const onSelect = useCallback(
-    (value) => {
-      navigate(generatePath(editRoute, { id: value.id }), {
+    (value: EventWithFullData) => {
+      navigate(generatePath(editRoute, { id: value.id.toString() }), {
         relative: 'route',
       });
     },
@@ -48,7 +49,7 @@ export const DataEditorPage = () => {
   }, [navigate]);
 
   const changeEvent = useCallback(
-    (value) => {
+    (value: EventWithFullData) => {
       dispatch(
         editEvent({
           ...value,
@@ -63,14 +64,14 @@ export const DataEditorPage = () => {
   );
 
   const onDelete = useCallback(
-    (value) => {
+    (value: EventWithFullData) => {
       dispatch(deleteEvent(value));
     },
     [dispatch],
   );
 
   const createEvent = useCallback(
-    (value) => {
+    (value: EventWithFullData) => {
       dispatch(
         addEvent({
           ...value,
@@ -130,6 +131,7 @@ export const DataEditorPage = () => {
           </div>
         </div>
         <EventsTable
+          // @ts-expect-error
           events={eventsWithNestedData}
           eventTypes={eventTypes}
           onSelect={onSelect}
